@@ -57,6 +57,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'subtracker'
-          slot-name: 'Production'
-          package: .
+          package: release.zip
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_31F85007BEBA4D3482D09536C58FE53C }}
