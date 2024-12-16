@@ -8,6 +8,10 @@ env:
   AZURE_WEBAPP_NAME: subtracker   # Replace with your app name
   NODE_VERSION: '18.x'
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -32,6 +36,7 @@ jobs:
         client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
         tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
         subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+        enable-AzPSSession: true
 
 
     - name: Deploy to Azure Web App
