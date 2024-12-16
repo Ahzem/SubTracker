@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { AuthResponse, NotificationPreferences, Subscription, SubscriptionInput, User } from '../types';
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = process.env.NODE_ENV === 'production' 
+  ? '/api'  // In production, use relative path
+  : 'http://localhost:5000/api'; // In development, use local server
 
 const api = axios.create({
   baseURL: BASE_URL,
