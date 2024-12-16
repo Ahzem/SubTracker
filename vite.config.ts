@@ -7,6 +7,7 @@ export default defineConfig({
     global: 'globalThis',
     'process.env': process.env
   },
+  base: '/',
   resolve: {
     alias: {
       'stream': 'stream-browserify',
