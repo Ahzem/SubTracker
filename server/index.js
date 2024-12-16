@@ -45,13 +45,11 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan('dev'));
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/reminders', reminderRoutes);
 app.use('/api/users', userRoutes);
 
-// MongoDB connection
 try {
   await mongoose.connect(process.env.MONGODB_URI);
   console.log('Connected to MongoDB successfully');
@@ -60,7 +58,6 @@ try {
   process.exit(1);
 }
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
