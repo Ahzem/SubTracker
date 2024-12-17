@@ -23,21 +23,27 @@ const PORT = process.env.PORT || 5000;
 
 // Add production configuration
 if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the React app
+  // Update CORS for Azure
+  app.use(cors({
+    origin: 'https://yellow-moss-029856a00.4.azurestaticapps.net',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
+  }));
+  
+  // Serve static files
   app.use(express.static(join(__dirname, '../dist')));
-
-  // Handle React routing, return all requests to React app
+  
+  // API routes
+  app.use('/api/auth', authRoutes);
+  app.use('/api/subscriptions', subscriptionRoutes);
+  app.use('/api/reminders', reminderRoutes);
+  app.use('/api/users', userRoutes);
+  
+  // SPA fallback
   app.get('*', (req, res) => {
     res.sendFile(join(__dirname, '../dist', 'index.html'));
   });
 }
-
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
 
 // Middleware
 app.use(express.json());
