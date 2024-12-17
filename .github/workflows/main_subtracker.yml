@@ -22,7 +22,7 @@ jobs:
           node-version: "18.x"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build the app
         run: npm run build
@@ -45,11 +45,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
+          path: dist
 
       - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: "subtracker"
-          package: build/
+          package: dist/
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_31F85007BEBA4D3482D09536C58FE53C }}
